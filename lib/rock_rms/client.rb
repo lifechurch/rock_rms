@@ -38,15 +38,16 @@ module RockRMS
     include RockRMS::Client::WorkflowActivityType
     include RockRMS::Client::WorkflowType
 
-    attr_reader :url, :username, :password, :logger, :cookie, :connection, :authorization_token
+    attr_reader :url, :username, :password, :logger, :cookie, :connection, :authorization_token, :consumer
 
-    def initialize(url:, username: nil, password: nil, logger: true, authorization_token: nil)
+    def initialize(url:, username: nil, password: nil, logger: true, authorization_token: nil, consumer: nil)
       @url      = "#{url}/api/"
       @username = username
       @password = password
       @logger   = logger
       @cookie   = auth["set-cookie"] unless auth.nil?
       @authorization_token = authorization_token
+      @consumer = consumer
     end
 
     def delete(path, options = {})
@@ -89,6 +90,7 @@ module RockRMS
 
       headers['Cookie'] = cookie if cookie
       headers['Authorization-Token'] = authorization_token if authorization_token
+      headers['X-CONSUMER'] = consumer if consumer
 
       Faraday.new(url: url, headers: headers) do |conn|
         conn.request   :json
