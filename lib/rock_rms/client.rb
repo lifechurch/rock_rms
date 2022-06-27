@@ -94,7 +94,7 @@ module RockRMS
 
       Faraday.new(url: url, headers: headers) do |conn|
         conn.request   :json
-        conn.response  :logger, logger unless logger.nil?
+        conn.response  :logger, @logger unless @logger.nil?
         conn.response  :oj
         conn.use       FaradayMiddleware::RockRMSErrorHandler
         conn.adapter   Faraday.default_adapter
