@@ -1,5 +1,4 @@
 require 'faraday'
-require 'faraday/net_http'
 require 'faraday_middleware'
 require 'faraday_middleware/parse_oj'
 
@@ -49,7 +48,6 @@ module RockRMS
       @cookie   = auth["set-cookie"] unless auth.nil?
       @authorization_token = authorization_token
       @consumer = consumer
-      Faraday.default_adapter = :net_http
     end
 
     def delete(path, options = {})
