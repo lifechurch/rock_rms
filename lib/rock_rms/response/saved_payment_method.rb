@@ -8,7 +8,8 @@ module RockRMS
         name: 'Name',
         payment_details: 'FinancialPaymentDetail',
         payment_detail_id: 'FinancialPaymentDetailId',
-        reference_number: 'ReferenceNumber'
+        reference_number: 'ReferenceNumber',
+        is_default: 'IsDefault'
       }.freeze
 
       def format_single(data)
