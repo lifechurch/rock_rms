@@ -2,6 +2,7 @@ module RockRMS
   class RockRMSError < StandardError
     class BadRequest < RockRMSError; end
     class NotFound < RockRMSError; end
+    class NotAllowed < RockRMSError; end
     class TooManyRequests < RockRMSError; end
     class InternalServerError < RockRMSError; end
     class BadGateway < RockRMSError; end
@@ -22,6 +23,8 @@ module FaradayMiddleware
         raise RockRMS::RockRMSError::BadRequest.new(error_message(env))
       when 404
         raise RockRMS::RockRMSError::NotFound.new(error_message(env))
+      when 405
+        raise RockRMS::RockRMSError::NotAllowed.new(error_message(env))
       when 429
         raise RockRMS::RockRMSError::TooManyRequests.new(error_message(env))
       when 500
